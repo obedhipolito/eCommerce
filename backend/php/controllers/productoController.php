@@ -83,7 +83,7 @@ class ProductoController
     {
         header('Content-Type: application/json');
         try {
-            $this->model->incrementarVisitaS($productoId);
+            $this->model->incrementarVisitas($productoId);
             $producto = $this->model->getProductoDetalle($productoId);
             if (!$producto) {
                 http_response_code(404);

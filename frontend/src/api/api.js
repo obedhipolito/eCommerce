@@ -29,7 +29,7 @@ export const getProductosPaginados = async (page, limit) =>
   fetch(`${API_URL}/productos_paginados?page=${page}&limit=${limit}`).then(res => res.json());
 
 export const getProductosByCategoria = async (categoriaId) =>
-  fetch(`${API_URL}/productos_categoria?categoria_id=${categoriaId}`).then(res => res.json());
+  fetch(`${API_URL}/producto_por_categoria?categoria_id=${categoriaId}`).then(res => res.json());
 
 //post
 
@@ -41,7 +41,7 @@ export const PostlikeProducto = async (id) =>
   }).then(res => res.json());
 
 export const PostComentario = async (producto_id, comentario) =>
-  fetch(`${API_URL}//post_comentario`, {
+  fetch(`${API_URL}/post_comentario`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ producto_id, ...comentario }),

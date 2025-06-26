@@ -18,6 +18,7 @@ class Producto
                 p.modelo,
                 p.precio,
                 p.marca,
+                p.likes,
                 p.especificaciones,
                 p.imagen_url
             FROM productos p
@@ -37,6 +38,7 @@ class Producto
                 p.modelo,
                 p.precio,
                 p.marca,
+                p.likes,
                 p.especificaciones,
                 p.imagen_url,
                 ROUND(AVG(c.calificacion), 1) AS calificacion_promedio
@@ -101,6 +103,7 @@ class Producto
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    //en esta funcion de utiliza una funcion de mysql para calcular la mensualidad
     public function getProductoDetalle(int $id): ?array
     {
         $sql = "
@@ -116,7 +119,9 @@ class Producto
                 p.fecha_registro,
                 p.fecha_modificacion,
                 c.nombre AS categoria,
-                ROUND(AVG(com.calificacion), 1) AS calificacion_promedio
+                ROUND(AVG(com.calificacion), 1) AS calificacion_promedio,
+                calcular_mensualidad(p.precio, 6) AS mensualidad_6_meses,
+                calcular_mensualidad(p.precio, 12) AS mensualidad_12_meses
             FROM productos p
             LEFT JOIN categorias c ON p.categoria_id = c.id
             LEFT JOIN comentarios com ON p.id = com.producto_id
@@ -147,7 +152,7 @@ class Producto
     public function buscarProductos(string $query, int $limit = 20): array
     {
         $sql = "
-            SELECT id, modelo, precio, marca
+            SELECT id, modelo, precio, marca, especificaciones, imagen_url
             FROM productos
             WHERE modelo LIKE :query
             OR especificaciones LIKE :query

@@ -156,3 +156,11 @@ Notas importantes
 - Al seleccionar una categoría o subcategoría desde el Header, los productos se cargan dinámicamente mediante rutas como:
   /categoria/:id
 - Se muestra la lista de productos, paginada, y se pueden ver detalles individuales, dar "like", y dejar comentarios con calificación.
+
+Evidencia visual del funcionamiento:
+- Página de inicio
+- Detalle de producto
+- Búsqueda de productos
+- comentarios
+
+Puedes abrir estos archivos desde la carpeta /screenshots/ del proyecto.
