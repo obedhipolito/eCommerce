@@ -5,7 +5,13 @@ require_once __DIR__ . '/../php/routes/routes.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 
 $router = new Router();
 
@@ -61,6 +67,19 @@ $router->post('/producto_like', function () use ($pdo) {
     if (isset($input['id'])) {
         $id = intval($input['id']);
         (new ProductoController($pdo))->incrementarLikesController($id);
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Falta el parámetro id o formato inválido']);
+    }
+});
+
+$router->post('/producto_unlike', function () use ($pdo) {
+    $rawInput = file_get_contents('php://input');
+    $input = json_decode($rawInput ?: '[]', true);
+
+    if (isset($input['id'])) {
+        $id = intval($input['id']);
+        (new ProductoController($pdo))->decrementarLikesController($id);
     } else {
         http_response_code(400);
         echo json_encode(['error' => 'Falta el parámetro id o formato inválido']);
@@ -140,6 +159,16 @@ $router->get('/categorias_hijas', function () use ($pdo) {
     } else {
         http_response_code(400);
         echo json_encode(['error' => 'Falta el parámetro padre_id']);
+    }
+});
+
+$router->get('/categoria_por_id', function () use ($pdo) {
+    if (isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        (new CategoriaController($pdo))->getCategoriaByIdController($id);
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Falta el parámetro id']);
     }
 });
 

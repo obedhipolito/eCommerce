@@ -15,23 +15,31 @@ export default function PaginatedProducts() {
   const prevPage = () => setPage(prev => (prev > 1 ? prev - 1 : 1));
 
   return (
-    <div>
+   <div>
+    {productos.length > 0 ? (
+     <>
       <h2>Más productos</h2>
       <div className="row">
-        <div className="row">
-            {productos.map(p => (
-                <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" key={p.id}>
-                <ProductCard producto={p} />
-                </div>
-            ))}
-</div>
+       {productos.map((p) => (
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" key={p.id}>
+         <ProductCard producto={p} />
+        </div>
+       ))}
       </div>
 
       <div className="pagination-controls">
-        <button onClick={prevPage} disabled={page === 1}>Anterior</button>
-        <span>Página {page}</span>
-        <button onClick={nextPage} disabled={productos.length < limit}>Siguiente</button>
+       <button onClick={prevPage} disabled={page === 1}>
+        Anterior
+       </button>
+       <span>Página {page}</span>
+       <button onClick={nextPage} disabled={productos.length < limit}>
+        Siguiente
+       </button>
       </div>
-    </div>
+     </>
+    ) : (
+     <p>No hay productos para mostrar.</p>
+    )}
+   </div>
   );
 }

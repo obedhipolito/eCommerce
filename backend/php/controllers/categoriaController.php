@@ -33,4 +33,21 @@ class CategoriaController
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+
+    public function getCategoriaByIdController($id)
+    {
+        header('Content-Type: application/json');
+        try {
+            $data = $this->model->getCategoriaById($id);
+            if ($data) {
+                echo json_encode(['success' => true, 'data' => $data]);
+            } else {
+                http_response_code(404);
+                echo json_encode(['success' => false, 'error' => 'Categoría no encontrada']);
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
 }

@@ -115,6 +115,23 @@ class ProductoController
         }
     }
 
+    public function decrementarLikesController(int $id)
+    {
+        header('Content-Type: application/json');
+        try {
+            $ok = $this->model->decrementarLikes($id);
+            if ($ok) {
+                echo json_encode(['success' => true, 'message' => 'Like eliminado']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['success' => false, 'error' => 'Error al eliminar like']);
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
     public function buscarProductosController(string $query)
     {
         header('Content-Type: application/json');

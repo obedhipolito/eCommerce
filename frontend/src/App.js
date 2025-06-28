@@ -7,15 +7,11 @@ import NotFound from './pages/NotFound';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SeacrhProduct from './pages/search';
-import ProductosPorCategoria from './components/productosCategoria';
+import ProductosPorCategoria from './pages/productosCategoria';
 
 
 export default function App() {
 
-  function CategoriaWrapper() {
-    const { id } = useParams();
-    return <ProductosPorCategoria categoriaId={parseInt(id, 20)} />;
-    }
   function ProductDetailWrapper() {
     const { id } = useParams();
     return <ProductDetail productoId={parseInt(id, 10)} />;
@@ -29,7 +25,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/buscar" element={<SeacrhProduct />} />
-            <Route path="/categoria" element={<ProductosPorCategoria />} />
+            <Route path="/categoria/:id" element={<ProductosPorCategoria />} />
             <Route path="/producto/:id" element={<ProductDetailWrapper />} />
           </Routes>
         </main>

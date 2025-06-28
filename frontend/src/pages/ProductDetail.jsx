@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import {
  getDetalleProducto,
- PostlikeProducto,
+PostLikeToggle,
  getComentarios,
  PostComentario,
 } from "../api/api";
 import "../styles/ProductDetails.css";
 
 export default function ProductDetail({ productoId }) {
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
  const [producto, setProducto] = useState(null);
  const [comentarios, setComentarios] = useState([]);
  const [loading, setLoading] = useState(true);
@@ -39,23 +41,43 @@ export default function ProductDetail({ productoId }) {
   });
  }, [productoId]);
 
- const handleLike = () => {
-  if (likeLoading) return;
-  setLikeLoading(true);
-  PostlikeProducto(productoId)
-   .then((res) => {
-    if (res.success) {
-     setProducto((prev) => ({ ...prev, likes: prev.likes + 1 }));
-    }
-   })
-   .finally(() => setLikeLoading(false));
- };
+ useEffect(() => {
+  if (producto) {
+   setLikesCount(producto.likes || 0);
+  }
+ }, [producto]);
+
+const handleLike = async () => {
+ if (likeLoading) return;
+ setLikeLoading(true);
+
+ try {
+  const url = liked ? "/producto_unlike" : "/producto_like"; // debes implementar endpoint dislike
+  const res = await PostLikeToggle(productoId, url); // función fetch post
+  if (res.success) {
+   setLiked(!liked);
+   setLikesCount((count) => (liked ? count - 1 : count + 1));
+  }
+ } catch (error) {
+  // manejar error
+ } finally {
+  setLikeLoading(false);
+ }
+};
 
  const handleSubmit = (e) => {
   e.preventDefault();
   PostComentario(productoId, nuevoComentario).then((res) => {
    if (res.success) {
-    setComentarios((prev) => [...prev, res.data]);
+    setComentarios((prev) => [
+     ...prev,
+     {
+      id: res.data.comentario_id,
+      nombre_usuario: nuevoComentario.nombre,
+      calificacion: nuevoComentario.calificacion,
+      texto: nuevoComentario.comentario,
+     },
+    ]);
     setNuevoComentario({ nombre: "", comentario: "", calificacion: 5 });
    }
   });
@@ -136,7 +158,7 @@ export default function ProductDetail({ productoId }) {
 
      <div className="likes-section">
       <p>
-       <strong>Likes:</strong> {producto.likes}
+       <strong>Likes:</strong> {likesCount}
       </p>
       <button
        onClick={handleLike}

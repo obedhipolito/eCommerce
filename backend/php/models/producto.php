@@ -54,6 +54,33 @@ class Producto
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getProductByCategoria(int $categoriaId, int $limit, int $offset = 0): array
+    {
+        // Obtener ids de categorías hijas
+        $sqlHijas = "SELECT id FROM categorias WHERE padre_id = :categoria_id";
+        $stmtHijas = $this->pdo->prepare($sqlHijas);
+        $stmtHijas->execute(['categoria_id' => $categoriaId]);
+        $hijas = $stmtHijas->fetchAll(\PDO::FETCH_COLUMN);
+
+        // Construir arreglo de categorías para la consulta, incluye la categoría padre
+        $categoriasFiltro = array_merge([$categoriaId], $hijas);
+
+        // Construir placeholders para IN (...)
+        $placeholders = implode(',', array_fill(0, count($categoriasFiltro), '?'));
+
+        $sql = "SELECT id, modelo, precio, marca, especificaciones, imagen_url
+            FROM productos
+            WHERE categoria_id IN ($placeholders)
+            ORDER BY id
+            LIMIT $limit OFFSET $offset";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($categoriasFiltro);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
     public function getMasVendidosPorCategoria(int $categoriaId, int $limit = 10): array
     {
         $sql = "
@@ -148,6 +175,12 @@ class Producto
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $id]);
     }
+    public function decrementarLikes(int $id): bool
+    {
+        $sql = "UPDATE productos SET likes = GREATEST(likes - 1, 0) WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
 
     public function buscarProductos(string $query, int $limit = 20): array
     {
@@ -175,22 +208,6 @@ class Producto
             LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function getProductByCategoria(int $categoriaId, int $limit, int $offset = 0): array
-    {
-        $sql = "SELECT id, modelo, precio, marca, especificaciones, imagen_url
-            FROM productos
-            WHERE categoria_id = :categoria_id
-            ORDER BY id
-            LIMIT :limit OFFSET :offset";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(':categoria_id', $categoriaId, \PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
         $stmt->execute();

@@ -39,15 +39,18 @@ CREATE TABLE accesorios (
   FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 );
 
-INSERT INTO categorias (nombre, padre_id) VALUES
-('Laptops', NULL),
-('Desktops', NULL),
-('Accesorios', NULL);
-
 INSERT INTO categorias (nombre, padre_id) VALUES 
-('Laptops', NULL), ('Desktops', NULL), ('Accesorios', NULL),
-('Gaming', 1), ('Ultrabooks', 1), ('All-in-One', 2),
-('Periféricos', 3), ('Monitores', 3), ('Componentes', 2), ('Workstations', 2);
+('Laptops', NULL), 
+('Desktops', NULL), 
+('Accesorios', NULL),
+('Gaming', 1), 
+('Ultrabooks', 1), 
+('All-in-One', 2),
+('Periféricos', 3), 
+('Monitores', 3), 
+('Componentes', 2), 
+('Workstations', 2);
+
 
 INSERT INTO productos (modelo, especificaciones, precio, categoria_id, marca, visitas, likes, imagen_url) VALUES 
 ('SlimBook 651', 'Ryzen 5, 8GB RAM, HDD 1TB, Linux', 11070, 6, 'Dell', 11, 14, '/images/products/producto_1.jpg'),

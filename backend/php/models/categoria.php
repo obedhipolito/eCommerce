@@ -24,4 +24,12 @@ class Categoria
         $stmt->execute(['padre_id' => $padreId]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getCategoriaById(int $id): array
+    {
+        $sql = "SELECT id, nombre, padre_id FROM categorias WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }
