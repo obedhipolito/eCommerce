@@ -1,0 +1,74 @@
+.product-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.product-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.product-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.product-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-specs {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+}
+
+.product-price-section {
+  flex: 1;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.monthly-payments {
+  margin-top: 20px;
+}
+
+.monthly-box {
+  margin-top: 10px;
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.likes-section {
+  margin-top: 20px;
+}
+
+.comments-section {
+  margin-top: 40px;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.comment-form button {
+  display: block;
+  margin-top: 10px;
+  padding: 6px 16px;
+}
