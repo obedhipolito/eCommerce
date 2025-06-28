@@ -56,16 +56,13 @@ class Producto
 
     public function getProductByCategoria(int $categoriaId, int $limit, int $offset = 0): array
     {
-        // Obtener ids de categorías hijas
         $sqlHijas = "SELECT id FROM categorias WHERE padre_id = :categoria_id";
         $stmtHijas = $this->pdo->prepare($sqlHijas);
         $stmtHijas->execute(['categoria_id' => $categoriaId]);
         $hijas = $stmtHijas->fetchAll(\PDO::FETCH_COLUMN);
 
-        // Construir arreglo de categorías para la consulta, incluye la categoría padre
         $categoriasFiltro = array_merge([$categoriaId], $hijas);
 
-        // Construir placeholders para IN (...)
         $placeholders = implode(',', array_fill(0, count($categoriasFiltro), '?'));
 
         $sql = "SELECT id, modelo, precio, marca, especificaciones, imagen_url
@@ -130,7 +127,6 @@ class Producto
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    //en esta funcion de utiliza una funcion de mysql para calcular la mensualidad
     public function getProductoDetalle(int $id): ?array
     {
         $sql = "

@@ -34,7 +34,7 @@ Posición deseada: Desarrollador Fullstack
     npm install
     npm start
 7. Accede al frontend en tu navegador mediante:  
-`http://localhost:5173` (o el puerto que indique Vite)
+`http://localhost:3000` (o el puerto que indique )
 
 > ⚠️ Los endpoints PHP se sirven desde:  
 > `http://localhost/eCommerce/backend/public_html/`
@@ -44,16 +44,24 @@ Nota: Los endpoints del backend están definidos en el archivo `api.js` dentro d
 
 📋 Actividades completadas:
 
-✅ Conexión y prueba de base de datos desde PHP  
-✅ Estructura backend en PHP (MVC: modelos, controladores, rutas)  
-✅ Creación dinámica de base de datos desde `setup.php` + `init.sql`  
-✅ Sistema de productos con vistas, likes y comentarios  
-✅ Sistema de categorías padre e hijas con selector funcional  
-✅ Filtrado de productos por categoría  
-✅ Búsqueda de productos por texto  
-✅ Frontend responsivo en React 19 + Bootstrap  
-✅ Enrutamiento entre vistas (detalle, búsqueda, categorías)  
-✅ Pruebas de conexión con scripts `.php` incluidos
+✅ Proyecto completo en GitHub con ramas master y development.
+✅Implementación completa del backend en PHP 7.4 usando arquitectura MVC (modelos, controladores, rutas) y conexión segura con PDO a MySQL.
+✅Script de instalación y poblamiento de base de datos (setup.php y init.sql) con más de 2000 productos y 10,000 comentarios generados automáticamente, incluyendo categorías anidadas y accesorios asociados.
+✅Configuración y uso de archivo .env para variables de entorno y conexión.
+✅Frontend moderno y responsivo desarrollado en React 19 con Bootstrap para estilos.
+✅Funcionalidades completas de navegación, incluyendo:
+✅Listado y filtrado de productos por categorías padre e hijas.
+✅Paginación en listados de productos destacados y más vendidos.
+✅Detalle de producto con especificaciones, comentarios y sistema de likes.
+✅Búsqueda dinámica de productos por texto.
+✅Procedimiento almacenado o equivalente para cálculo de mensualidades a 6 y 12 meses con interés anual del 10%.
+✅Pruebas automatizadas y scripts en PHP para validar conexión y manipulación básica de datos.
+✅.htaccess configurado para restringir acceso a vistas privadas y con protección de rutas sensibles
+✅Código limpio, modular y organizado, con documentación básica para facilitar mantenimiento y escalabilidad.
+✅ Vista de productos ordenados por calificación promedio implementada vía consulta SQL optimizada.
+✅ Imágenes responsivas y diseño adaptable verificado en distintas resoluciones.
+✅ Mockups y capturas de pantalla en carpeta `/screenshots/` para presentación visual móvil.
+✅ Todos los elementos visuales requeridos en el frontend (buscador, paginación, filtros, etc.) están presentes, incluso si algunos no tienen funcionalidad completa.
 
 Información  Detallada
 
