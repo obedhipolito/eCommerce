@@ -52,14 +52,13 @@ const handleLike = async () => {
  setLikeLoading(true);
 
  try {
-  const url = liked ? "/producto_unlike" : "/producto_like"; // debes implementar endpoint dislike
-  const res = await PostLikeToggle(productoId, url); // función fetch post
+  const url = liked ? "/producto_unlike" : "/producto_like"; 
+  const res = await PostLikeToggle(productoId, url);
   if (res.success) {
    setLiked(!liked);
    setLikesCount((count) => (liked ? count - 1 : count + 1));
   }
  } catch (error) {
-  // manejar error
  } finally {
   setLikeLoading(false);
  }
@@ -106,7 +105,7 @@ const handleLike = async () => {
      <img
       src={
        producto.imagen_url ||
-       "https://via.placeholder.com/600x400?text=Sin+imagen"
+       "/images/products/product_1.jpg"
       }
       alt={producto.modelo}
       style={{ width: "100%", borderRadius: 8 }}

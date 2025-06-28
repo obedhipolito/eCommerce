@@ -1,4 +1,8 @@
-# public_html/.htaccess
+
+RewriteRule ^(config|php|install|tests)/ - [F,L]
+<FilesMatch "^(\.env|\.htaccess)$">
+  Require all denied
+</FilesMatch>
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
