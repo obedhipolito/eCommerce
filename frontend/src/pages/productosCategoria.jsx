@@ -66,13 +66,7 @@ export default function ProductosPorCategoria() {
    )}
 
    {productos.length > 0 ? (
-    <div
-     style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(4, 1fr)",
-      gap: 16,
-     }}
-    >
+    <div className="productos-grid">
      {productos.map((p) => (
       <ProductCard key={p.id} producto={p} />
      ))}

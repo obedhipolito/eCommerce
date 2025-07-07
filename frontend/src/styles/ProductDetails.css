@@ -12,8 +12,14 @@
 
 .product-layout {
   display: flex;
-  gap: 30px;
-  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.product-layout > div {
+  flex: 1;
+  min-width: 280px;
 }
 
 .product-image {
@@ -71,4 +77,19 @@
   display: block;
   margin-top: 10px;
   padding: 6px 16px;
+}
+
+/* Mobile: stack columns vertically */
+@media (max-width: 768px) {
+  .product-layout {
+    flex-direction: column;
+  }
+
+  .product-layout > div {
+    width: 100%;
+  }
+
+  .product-price-section {
+    order: 2;
+  }
 }
